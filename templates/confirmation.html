@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/styles/app.css" />
+    <link rel="stylesheet" href="/static/styles/navbar.css" />
+    <link rel="stylesheet" href="/static/styles/confirmation.css" />
+    <title>Car Rental Confirmation</title>
+    <script>
+      // Used to check if car is available.
+      function checkAvailability(event, rented, makeModel) {
+        if (rented) {
+          event.preventDefault();
+          alert(`The car "${makeModel}" is already rented.`);
+        }
+      }
+
+      // Update the price display and invoice details.
+      function updatePrice() {
+        const dailyRate = parseFloat(
+          "{{ car_data['details']['rental_price_per_day'] }}"
+        );
+        const duration = parseInt(
+          document.getElementById("rental-duration").value
+        );
+        const basePrice = dailyRate * duration;
+        const rentalFee = 25.0;
+        // Calculate tax at 10% for (base price + rental fee)
+        const tax = 0.1 * (basePrice + rentalFee);
+        const totalPrice = basePrice + rentalFee + tax;
+
+        document.getElementById("price-display").textContent =
+          "$" + totalPrice.toFixed(2);
+        document.getElementById("invoice-base").textContent =
+          "$" + basePrice.toFixed(2);
+        document.getElementById("invoice-fee").textContent =
+          "$" + rentalFee.toFixed(2);
+        document.getElementById("invoice-tax").textContent =
+          "$" + tax.toFixed(2);
+        document.getElementById("invoice-total").textContent =
+          "$" + totalPrice.toFixed(2);
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        document
+          .getElementById("rental-duration")
+          .addEventListener("input", (e) => {
+            document.getElementById("duration-display").textContent =
+              e.target.value;
+            updatePrice();
+          });
+        updatePrice();
+      });
+
+      // Proceed with checkout if all fields are valid.
+      function validateAndCheckout() {
+        const form = document.getElementById("rentalForm");
+        if (form.checkValidity()) {
+          goToCheckout();
+        } else {
+          form.reportValidity();
+        }
+      }
+
+      function goToCheckout() {
+        // Retrieve form values
+        const duration = document.getElementById("rental-duration").value;
+        const totalPrice = document.getElementById("invoice-total").textContent;
+        const makeModel = "{{ car_data['details']['make_model'] }}";
+        const year = "{{ car_data['details']['year'] }}";
+        const mileage = "{{ car_data['details']['mileage'] }}";
+        const customerName = document.getElementById("customer-name").value;
+        const customerPhone = document.getElementById("customer-phone").value;
+        const customerEmail = document.getElementById("customer-email").value;
+        const startDate = document.getElementById("rental-start-date").value;
+        const pickupTime = document.getElementById("pickup-time").value;
+
+        const checkoutUrl =
+          `/checkout?make_model=${encodeURIComponent(makeModel)}` +
+          `&year=${year}&mileage=${mileage}&duration=${duration}&total_price=${totalPrice}` +
+          `&customer_name=${encodeURIComponent(customerName)}` +
+          `&customer_phone=${encodeURIComponent(customerPhone)}` +
+          `&customer_email=${encodeURIComponent(customerEmail)}` +
+          `&start_date=${startDate}&pickup_time=${pickupTime}`;
+
+        window.location.href = checkoutUrl;
+      }
+
+      function goBack() {
+        window.history.back();
+      }
+    </script>
+    <style>
+      /* Your existing CSS, including input styling, remains unchanged.
+         Ensure that the inputs for text, date, time, tel, and email include the 
+         required styling as shown below:
+      */
+      .rental-form .form-group input[type="text"],
+      .rental-form .form-group input[type="date"],
+      .rental-form .form-group input[type="time"],
+      .rental-form .form-group input[type="tel"],
+      .rental-form .form-group input[type="email"] {
+        padding: 10px;
+        font-size: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        transition: border-color 0.3s;
+      }
+      .rental-form .form-group input[type="text"]:focus,
+      .rental-form .form-group input[type="date"]:focus,
+      .rental-form .form-group input[type="time"]:focus,
+      .rental-form .form-group input[type="tel"]:focus,
+      .rental-form .form-group input[type="email"]:focus {
+        border-color: #007bff;
+        outline: none;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="logo">Majestic Motors</div>
+      <ul class="nav-links">
+        <li>
+          <a href="/">
+            <img
+              src="https://img.icons8.com/fluency-systems-regular/24/000000/home.png"
+              alt="Home Icon"
+            />
+            Home
+          </a>
+        </li>
+        <li>
+          <a href="/#features">
+            <img
+              src="https://img.icons8.com/fluency-systems-regular/24/000000/settings.png"
+              alt="Features Icon"
+            />
+            Features
+          </a>
+        </li>
+        <li>
+          <a href="/#cars">
+            <img
+              src="https://img.icons8.com/fluency-systems-regular/24/000000/car.png"
+              alt="Cars Icon"
+            />
+            Cars
+          </a>
+        </li>
+        <li>
+          <a href="/#contact">
+            <img
+              src="https://img.icons8.com/fluency-systems-regular/24/000000/phone.png"
+              alt="Contact Icon"
+            />
+            Contact
+          </a>
+        </li>
+      </ul>
+      <a href="/auth" class="profile-button">Sign In</a>
+    </nav>
+
+    <button class="back-button" onclick="goBack()">← Back</button>
+    <script>
+      function goBack() {
+        window.history.back();
+      }
+    </script>
+
+    <div class="container">
+      <!-- Left Column: Car Info -->
+      <div class="car-info floating-box">
+        <h2>Confirm Your Car</h2>
+        <div class="image-container">
+          <img
+            src="/static/car_images/{{ car_data['details']['make_model']|replace(' ', '_') }}.jpg"
+            alt="Car Image"
+          />
+        </div>
+        <div class="details-row">
+          <div class="detail-box">
+            <span class="detail-title">Make and Model</span>
+            <p>{{ car_data['details']['make_model'] }}</p>
+          </div>
+          <div class="detail-box">
+            <span class="detail-title">Year</span>
+            <p>{{ car_data['details']['year'] }}</p>
+          </div>
+          <div class="detail-box">
+            <span class="detail-title">Mileage</span>
+            <p>{{ car_data['details']['mileage'] }}</p>
+          </div>
+          <div class="detail-box">
+            <span class="detail-title">Status</span>
+            <p>Available</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Middle Column: Rental Form -->
+      <div class="rental-form floating-box">
+        <h2>Rental Details</h2>
+        <form id="rentalForm">
+          <!-- Rental Duration -->
+          <div class="form-group">
+            <label for="rental-duration">Duration (Days):</label>
+            <input
+              type="range"
+              id="rental-duration"
+              name="rental-duration"
+              min="1"
+              max="30"
+              value="1"
+              required
+            />
+            <p>Days Selected: <span id="duration-display">1</span></p>
+          </div>
+          <!-- Customer Name -->
+          <div class="form-group">
+            <label for="customer-name">Your Name:</label>
+            <input
+              type="text"
+              id="customer-name"
+              name="customer-name"
+              required
+            />
+          </div>
+          <!-- Phone Number -->
+          <div class="form-group">
+            <label for="customer-phone">Phone Number:</label>
+            <!-- Pattern below expects exactly 10 digits -->
+            <input
+              type="tel"
+              id="customer-phone"
+              name="customer-phone"
+              required
+              pattern="^\d{10}$"
+            />
+          </div>
+          <!-- Email -->
+          <div class="form-group">
+            <label for="customer-email">Email:</label>
+            <input
+              type="email"
+              id="customer-email"
+              name="customer-email"
+              required
+            />
+          </div>
+          <!-- Rental Start Date -->
+          <div class="form-group">
+            <label for="rental-start-date">Rental Start Date:</label>
+            <input
+              type="date"
+              id="rental-start-date"
+              name="rental-start-date"
+              required
+            />
+          </div>
+          <!-- Pickup Time -->
+          <div class="form-group">
+            <label for="pickup-time">Pickup Time:</label>
+            <input type="time" id="pickup-time" name="pickup-time" required />
+          </div>
+          <p>
+            <strong>Total:</strong>
+            <span id="price-display"
+              >${{ car_data['details']['rental_price_per_day'] }}</span
+            >
+          </p>
+          <button
+            type="button"
+            class="confirm-button"
+            onclick="validateAndCheckout()"
+          >
+            Confirm Rental
+          </button>
+        </form>
+      </div>
+
+      <!-- Third Column: Invoice Summary -->
+      <div class="invoice-box floating-box">
+        <h2>Invoice Summary</h2>
+        <p>Base Price: <span id="invoice-base">$0.00</span></p>
+        <p>Rental Fee: <span id="invoice-fee">$25.00</span></p>
+        <p>Tax (10%): <span id="invoice-tax">$0.00</span></p>
+        <p>
+          <strong>Total: <span id="invoice-total">$0.00</span></strong>
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

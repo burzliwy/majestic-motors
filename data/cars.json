@@ -1,0 +1,289 @@
+{
+  "cars": [
+    {
+      "class": "Economy",
+      "vehicles": [
+        {
+          "make_model": "Toyota Corolla",
+          "year": 2020,
+          "mileage": 35000,
+          "previous_owners": null,
+          "rented": false,
+          "image_link": "static/car_images/toyota_corolla.jpg",
+          "rental_price_per_day": 45.87
+        },
+        {
+          "make_model": "Honda Fit",
+          "year": 2019,
+          "mileage": 45000,
+          "previous_owners": null,
+          "rented": false,
+          "image_link": "static/car_images/honda_fit.jpg",
+          "rental_price_per_day": 40.33
+        },
+        {
+          "make_model": "Hyundai Accent",
+          "year": 2021,
+          "mileage": 28000,
+          "previous_owners": null,
+          "rented": true,
+          "image_link": "static/car_images/Hyundai_Accent.jpg",
+          "rental_price_per_day": 42.16
+        },
+        {
+          "make_model": "Ford Fiesta",
+          "year": 2018,
+          "mileage": 60000,
+          "previous_owners": null,
+          "rented": true,
+          "image_link": "static/car_images/ford_fiesta.jpg",
+          "rental_price_per_day": 38.72
+        },
+        {
+          "make_model": "Nissan Versa",
+          "year": 2020,
+          "mileage": 33000,
+          "previous_owners": null,
+          "rented": false,
+          "image_link": "static/car_images/Nissan_Versa.jpg",
+          "rental_price_per_day": 42.45
+        },
+        {
+          "make_model": "Chevrolet Spark",
+          "year": 2019,
+          "mileage": 40000,
+          "previous_owners": null,
+          "rented": false,
+          "image_link": null,
+          "rental_price_per_day": 35.91
+        },
+        {
+          "make_model": "Kia Rio",
+          "year": 2020,
+          "mileage": 35500,
+          "previous_owners": null,
+          "rented": false,
+          "image_link": null,
+          "rental_price_per_day": 40.22
+        },
+        {
+          "make_model": "Volkswagen Polo",
+          "year": 2021,
+          "mileage": 28000,
+          "previous_owners": null,
+          "rented": false,
+          "image_link": null,
+          "rental_price_per_day": 43.78
+        },
+        {
+          "make_model": "Fiat 500",
+          "year": 2018,
+          "mileage": 60500,
+          "previous_owners": null,
+          "rented": true,
+          "image_link": null,
+          "rental_price_per_day": 36.64
+        },
+        {
+          "make_model": "Suzuki Swift",
+          "year": 2020,
+          "mileage": 30000,
+          "previous_owners": null,
+          "rented": false,
+          "image_link": null,
+          "rental_price_per_day": 39.49
+        }
+      ]
+    },
+    {
+      "class": "Standard",
+      "vehicles": [
+        {
+          "make_model": "Toyota Camry",
+          "year": 2021,
+          "mileage": 25000,
+          "previous_owners": null,
+          "rented": false,
+          "image_link": "static/car_images/Toyota_Camry.jpg",
+          "rental_price_per_day": 65.29
+        },
+        {
+          "make_model": "Honda Accord",
+          "year": 2020,
+          "mileage": 30000,
+          "previous_owners": null,
+          "rented": false,
+          "image_link": "static/car_images/Honda_Accord.jpg",
+          "rental_price_per_day": 68.74
+        },
+        {
+          "make_model": "Mazda 6",
+          "year": 2019,
+          "mileage": 42000,
+          "previous_owners": null,
+          "rented": false,
+          "image_link": "static/car_images/Mazda_6.jpg",
+          "rental_price_per_day": 66.83
+        },
+        {
+          "make_model": "Ford Fusion",
+          "year": 2018,
+          "mileage": 55000,
+          "previous_owners": null,
+          "rented": true,
+          "image_link": "static/car_images/Ford_Fusion.jpg",
+          "rental_price_per_day": 64.17
+        },
+        {
+          "make_model": "Nissan Altima",
+          "year": 2020,
+          "mileage": 28000,
+          "previous_owners": null,
+          "rented": false,
+          "image_link": "static/car_images/Nissan_Altima.jpg",
+          "rental_price_per_day": 63.91
+        },
+        {
+          "make_model": "Hyundai Sonata",
+          "year": 2021,
+          "mileage": 26000,
+          "previous_owners": null,
+          "rented": false,
+          "image_link": null,
+          "rental_price_per_day": 67.53
+        },
+        {
+          "make_model": "Subaru Legacy",
+          "year": 2020,
+          "mileage": 31000,
+          "previous_owners": null,
+          "rented": true,
+          "image_link": null,
+          "rental_price_per_day": 70.32
+        },
+        {
+          "make_model": "Chevrolet Malibu",
+          "year": 2019,
+          "mileage": 41000,
+          "previous_owners": null,
+          "rented": false,
+          "image_link": null,
+          "rental_price_per_day": 62.46
+        },
+        {
+          "make_model": "Kia Optima",
+          "year": 2018,
+          "mileage": 56000,
+          "previous_owners": null,
+          "rented": false,
+          "image_link": null,
+          "rental_price_per_day": 60.21
+        },
+        {
+          "make_model": "Volkswagen Passat",
+          "year": 2020,
+          "mileage": 29500,
+          "previous_owners": null,
+          "rented": false,
+          "image_link": null,
+          "rental_price_per_day": 63.74
+        }
+      ]
+    },
+    {
+      "class": "Luxury",
+      "vehicles": [
+        {
+          "make_model": "BMW 5 Series",
+          "year": 2021,
+          "mileage": 20000,
+          "previous_owners": null,
+          "rented": false,
+          "image_link": "static/car_images/BMW_5.jpg",
+          "rental_price_per_day": 120.75
+        },
+        {
+          "make_model": "Audi A6",
+          "year": 2020,
+          "mileage": 30000,
+          "previous_owners": null,
+          "rented": false,
+          "image_link": "static/car_images/Audi_A6.jpg",
+          "rental_price_per_day": 115.43
+        },
+        {
+          "make_model": "Mercedes-Benz E-Class",
+          "year": 2019,
+          "mileage": 40000,
+          "previous_owners": null,
+          "rented": false,
+          "image_link": "static/car_images/mercedes_E.jpg",
+          "rental_price_per_day": 130.59
+        },
+        {
+          "make_model": "Lexus GS",
+          "year": 2021,
+          "mileage": 22000,
+          "previous_owners": null,
+          "rented": false,
+          "image_link": "static/car_images/Lexus_GS.jpg",
+          "rental_price_per_day": 110.22
+        },
+        {
+          "make_model": "Jaguar XF",
+          "year": 2020,
+          "mileage": 33000,
+          "previous_owners": null,
+          "rented": false,
+          "image_link": "static/car_images/Jaguar_XF.jpg",
+          "rental_price_per_day": 125.9
+        },
+        {
+          "make_model": "Tesla Model S",
+          "year": 2021,
+          "mileage": 21000,
+          "previous_owners": null,
+          "rented": false,
+          "image_link": null,
+          "rental_price_per_day": 140.88
+        },
+        {
+          "make_model": "Porsche Panamera",
+          "year": 2020,
+          "mileage": 32000,
+          "previous_owners": null,
+          "rented": false,
+          "image_link": null,
+          "rental_price_per_day": 150.55
+        },
+        {
+          "make_model": "Cadillac CT5",
+          "year": 2021,
+          "mileage": 22000,
+          "previous_owners": null,
+          "rented": false,
+          "image_link": null,
+          "rental_price_per_day": 135.67
+        },
+        {
+          "make_model": "Genesis G80",
+          "year": 2019,
+          "mileage": 42000,
+          "previous_owners": null,
+          "rented": false,
+          "image_link": null,
+          "rental_price_per_day": 125.43
+        },
+        {
+          "make_model": "Volvo S90",
+          "year": 2020,
+          "mileage": 33500,
+          "previous_owners": null,
+          "rented": false,
+          "image_link": null,
+          "rental_price_per_day": 120.38
+        }
+      ]
+    }
+  ]
+}

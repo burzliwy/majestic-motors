@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Car Rental Kiosk</title>
+    <link rel="stylesheet" href="/static/styles/app.css" />
+    <link rel="stylesheet" href="/static/styles/navbar.css" />
+    <link rel="stylesheet" href="/static/styles/gallery.css" />
+    <link rel="stylesheet" href="/static/styles/confirmations.css" />
+    <style>
+      /* Base container for the gallery content */
+      .gallery-container {
+        max-width: 1200px;
+        margin: 40px auto;
+        padding: 0 20px;
+      }
+
+      /* Category Tabs (Class Selectors) – modern & floating */
+      .filter-tabs {
+        background: rgba(255, 255, 255, 0.9);
+        padding: 15px 20px;
+        border-radius: 30px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+      }
+      .filter-tabs .tab {
+        background: #ffffff;
+        border: 1px solid #ddd;
+        padding: 10px 20px;
+        border-radius: 25px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s, transform 0.3s;
+      }
+      .filter-tabs .tab:hover {
+        background-color: #f0f0f0;
+        transform: translateY(-2px);
+      }
+      .filter-tabs .tab.active {
+        background-color: #007bff;
+        color: #fff;
+        border-color: #007bff;
+      }
+
+      /* Filters Row (Sort Dropdowns & Reset) placed below the category buttons */
+      .filter-controls {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 30px;
+      }
+      .filter-controls .sort-filter {
+        background: #fff;
+        border: 1px solid #ddd;
+        padding: 10px 20px;
+        border-radius: 25px;
+        font-size: 1rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        transition: transform 0.3s, background-color 0.3s;
+      }
+      .filter-controls .sort-filter:hover {
+        transform: translateY(-3px);
+      }
+      .reset-button {
+        background: #f8f9fa;
+      }
+
+      /* Keyframes for swiping animations based on price sort */
+      @keyframes slideRight {
+        /* Cards slide in from the left */
+        from {
+          opacity: 0;
+          transform: translateX(-100%);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      @keyframes slideLeft {
+        /* Cards slide in from the right */
+        from {
+          opacity: 0;
+          transform: translateX(100%);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      /* Gallery Section Container with fade-in for category switching */
+      .gallery-section {
+        margin-bottom: 40px;
+        opacity: 0;
+        animation: fadeIn 0.5s ease forwards;
+      }
+      .gallery-section.hidden {
+        display: none;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Section Banner */
+      .class-banner {
+        font-size: 1.8rem;
+        font-weight: 600;
+        text-align: left;
+        padding: 10px 20px;
+        margin-bottom: 20px;
+        background: #ffffff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #f7f7f7;
+      }
+      .banner-title {
+        font-size: 1.8rem;
+        font-weight: bold;
+      }
+
+      /* Responsive Gallery Grid */
+      .gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+      }
+
+      /* Card Container */
+      .card {
+        background-color: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
+        border: none;
+      }
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+      }
+
+      /* Resetting button styles within the card */
+      .card-button {
+        display: block;
+        width: 100%;
+        text-align: inherit;
+        background: none;
+        border: none;
+        padding: 0;
+        margin: 0;
+        cursor: pointer;
+      }
+
+      /* Card Image */
+      .card-button img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+      }
+      .card-button img:hover {
+        transform: scale(1.05);
+      }
+
+      /* Card Content */
+      .card-content {
+        padding: 15px;
+        text-align: center;
+      }
+      .card-content h3 {
+        font-size: 1.2rem;
+        margin: 10px 0 5px;
+        color: #212529;
+        font-weight: 600;
+      }
+      .card-content p {
+        font-size: 0.95rem;
+        color: #555;
+        margin: 0 0 5px;
+      }
+
+      /* Status Badges */
+      .status {
+        font-weight: 600;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        margin-top: 10px;
+        display: inline-block;
+      }
+      .status.available {
+        background-color: #28a745;
+        color: #fff;
+      }
+      .status.rented {
+        background-color: #dc3545;
+        color: #fff;
+      }
+
+      .card-price {
+        font-style: italic;
+        font-size: 1rem;
+        color: #4a4a4a;
+        text-align: center;
+        margin-top: 10px;
+      }
+      .price-highlight {
+        color: #28a745;
+        font-weight: bold;
+      }
+    </style>
+    <script>
+      function checkAvailability(event, rented, makeModel) {
+        if (rented) {
+          event.preventDefault();
+          alert('The car "' + makeModel + '" is already rented.');
+        }
+      }
+
+      // Change the active gallery section (with fade animation for category switching)
+      function showCategory(category) {
+        const sections = document.querySelectorAll(".gallery-section");
+        sections.forEach((section) => {
+          if (section.id === category) {
+            section.classList.remove("hidden");
+            // Reset and restart fade-in animation.
+            section.style.animation = "none";
+            section.offsetHeight; // force reflow
+            section.style.animation = "";
+          } else {
+            section.classList.add("hidden");
+          }
+        });
+        const tabs = document.querySelectorAll(".filter-tabs .tab");
+        tabs.forEach((tab) => {
+          if (tab.dataset.category === category) {
+            tab.classList.add("active");
+          } else {
+            tab.classList.remove("active");
+          }
+        });
+        applySort();
+      }
+
+      // Apply sort to cards and animate swipe if using price sort.
+      function applySort() {
+        const priceSort = document.getElementById("price-sort").value;
+        const mileageSort = document.getElementById("mileage-sort").value;
+        document.querySelectorAll(".gallery").forEach((gallery) => {
+          const cards = Array.from(gallery.children);
+          // Sort using price sort (with mileage as a secondary key).
+          cards.sort((a, b) => {
+            let cmp = 0;
+            const aPrice = parseFloat(a.dataset.price) || 0;
+            const bPrice = parseFloat(b.dataset.price) || 0;
+            const aMileage = parseFloat(a.dataset.mileage) || 0;
+            const bMileage = parseFloat(b.dataset.mileage) || 0;
+            if (priceSort !== "default") {
+              cmp =
+                priceSort === "high-to-low" ? bPrice - aPrice : aPrice - bPrice;
+            }
+            if (cmp === 0 && mileageSort !== "default") {
+              cmp =
+                mileageSort === "high-to-low"
+                  ? bMileage - aMileage
+                  : aMileage - bMileage;
+            }
+            return cmp;
+          });
+          // Append the cards in the new order.
+          cards.forEach((card) => gallery.appendChild(card));
+
+          // Choose the swipe animation based on the price sort choice.
+          let animName = "";
+          if (priceSort === "low-to-high") {
+            // "Going up" in price: cards swipe in from the left.
+            animName = "slideRight";
+          } else if (priceSort === "high-to-low") {
+            // "Going down" in price: cards swipe in from the right.
+            animName = "slideLeft";
+          }
+          if (animName !== "") {
+            cards.forEach((card) => {
+              card.style.animation = animName + " 0.5s ease";
+            });
+            // Clear animation styles after 0.5 seconds.
+            setTimeout(() => {
+              cards.forEach((card) => {
+                card.style.animation = "";
+              });
+            }, 500);
+          }
+        });
+      }
+
+      // Reset the sort filters to their default values.
+      function resetFilters() {
+        document.getElementById("price-sort").value = "default";
+        document.getElementById("mileage-sort").value = "default";
+        applySort();
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        showCategory("economy");
+        applySort();
+      });
+    </script>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="logo">Majestic Motors</div>
+      <ul class="nav-links">
+        <li>
+          <a href="/">
+            <img
+              src="https://img.icons8.com/fluency-systems-regular/24/000000/home.png"
+              alt="Home Icon"
+            />
+            Home
+          </a>
+        </li>
+        <li>
+          <a href="/#features">
+            <img
+              src="https://img.icons8.com/fluency-systems-regular/24/000000/settings.png"
+              alt="Features Icon"
+            />
+            Features
+          </a>
+        </li>
+        <li>
+          <a href="/#cars">
+            <img
+              src="https://img.icons8.com/fluency-systems-regular/24/000000/car.png"
+              alt="Cars Icon"
+            />
+            Cars
+          </a>
+        </li>
+        <li>
+          <a href="/#contact">
+            <img
+              src="https://img.icons8.com/fluency-systems-regular/24/000000/phone.png"
+              alt="Contact Icon"
+            />
+            Contact
+          </a>
+        </li>
+      </ul>
+      <a href="/auth" class="profile-button">Sign In</a>
+    </nav>
+
+    {% if message %}
+    <div class="notification">{{ message }}</div>
+    {% endif %}
+
+    <div class="gallery-container">
+      <!-- Category Tabs Row -->
+      <div class="filter-tabs">
+        <button
+          class="tab"
+          data-category="economy"
+          onclick="showCategory('economy')"
+        >
+          Economy Cars
+        </button>
+        <button
+          class="tab"
+          data-category="standard"
+          onclick="showCategory('standard')"
+        >
+          Standard Cars
+        </button>
+        <button
+          class="tab"
+          data-category="luxury"
+          onclick="showCategory('luxury')"
+        >
+          Luxury Cars
+        </button>
+      </div>
+
+      <!-- Filters Row (Sort Dropdowns & Reset) -->
+      <div class="filter-controls">
+        <select id="price-sort" class="sort-filter" onchange="applySort()">
+          <option value="default">Sort Price</option>
+          <option value="high-to-low">Price High to Low</option>
+          <option value="low-to-high">Price Low to High</option>
+        </select>
+        <select id="mileage-sort" class="sort-filter" onchange="applySort()">
+          <option value="default">Sort Mileage</option>
+          <option value="high-to-low">Mileage High to Low</option>
+          <option value="low-to-high">Mileage Low to High</option>
+        </select>
+        <button
+          type="button"
+          class="sort-filter reset-button"
+          onclick="resetFilters()"
+        >
+          Reset Filters
+        </button>
+      </div>
+
+      <!-- Gallery Section: Economy Cars -->
+      <div id="economy" class="gallery-section">
+        <div class="class-banner">
+          <span class="banner-title">Economy Cars</span>
+          <div class="price-slider">
+            <input type="range" min="0" max="100" value="15" disabled />
+            <span class="tooltip"
+              >Green: Budget | Yellow: Medium | Red: High</span
+            >
+          </div>
+        </div>
+        <div class="gallery">
+          {% for car in cars['economy'] %}
+          <form
+            action="{{ url_for('book_car', make_model=car.make_model) }}"
+            method="POST"
+            class="card"
+            data-price="{{ car.rental_price_per_day }}"
+            data-mileage="{{ car.mileage }}"
+          >
+            <button
+              type="submit"
+              class="card-button"
+              onclick="checkAvailability(event, {{ car.rented|tojson }}, '{{ car.make_model }}')"
+            >
+              <img
+                src="{{ url_for('static', filename='car_images/' ~ car.make_model|replace(' ', '_') ~ '.jpg') }}"
+                alt="{{ car.make_model }}"
+              />
+              <div class="card-content">
+                <h3>{{ car.make_model }}</h3>
+                <p>Year: {{ car.year }}</p>
+                <p>Mileage: {{ car.mileage }} miles</p>
+                <div class="card-price">
+                  <p>
+                    <i>
+                      Price:
+                      <span class="price-highlight"
+                        >${{ car.rental_price_per_day }}</span
+                      >/day
+                    </i>
+                  </p>
+                </div>
+                <div class="card-price-slider">
+                  <input type="range" min="0" max="100" value="15" disabled />
+                </div>
+                <p
+                  class="status {% if car.rented %}rented{% else %}available{% endif %}"
+                >
+                  {% if car.rented %}Rented{% else %}Available{% endif %}
+                </p>
+              </div>
+            </button>
+          </form>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Gallery Section: Standard Cars -->
+      <div id="standard" class="gallery-section hidden">
+        <div class="class-banner">
+          <span class="banner-title">Standard Cars</span>
+          <div class="price-slider">
+            <input type="range" min="0" max="100" value="50" disabled />
+            <span class="tooltip"
+              >Green: Budget | Yellow: Medium | Red: High</span
+            >
+          </div>
+        </div>
+        <div class="gallery">
+          {% for car in cars['standard'] %}
+          <form
+            action="{{ url_for('book_car', make_model=car.make_model) }}"
+            method="POST"
+            class="card"
+            data-price="{{ car.rental_price_per_day }}"
+            data-mileage="{{ car.mileage }}"
+          >
+            <button
+              type="submit"
+              class="card-button"
+              onclick="checkAvailability(event, {{ car.rented|tojson }}, '{{ car.make_model }}')"
+            >
+              <img
+                src="{{ url_for('static', filename='car_images/' ~ car.make_model|replace(' ', '_') ~ '.jpg') }}"
+                alt="{{ car.make_model }}"
+              />
+              <div class="card-content">
+                <h3>{{ car.make_model }}</h3>
+                <p>Year: {{ car.year }}</p>
+                <p>Mileage: {{ car.mileage }} miles</p>
+                <div class="card-price">
+                  <p>
+                    <i>
+                      Price:
+                      <span class="price-highlight"
+                        >${{ car.rental_price_per_day }}</span
+                      >/day
+                    </i>
+                  </p>
+                </div>
+                <div class="card-price-slider">
+                  <input type="range" min="0" max="100" value="50" disabled />
+                </div>
+                <p
+                  class="status {% if car.rented %}rented{% else %}available{% endif %}"
+                >
+                  {% if car.rented %}Rented{% else %}Available{% endif %}
+                </p>
+              </div>
+            </button>
+          </form>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Gallery Section: Luxury Cars -->
+      <div id="luxury" class="gallery-section hidden">
+        <div class="class-banner">
+          <span class="banner-title">Luxury Cars</span>
+          <div class="price-slider">
+            <input type="range" min="0" max="100" value="83" disabled />
+            <span class="tooltip"
+              >Green: Budget | Yellow: Medium | Red: High</span
+            >
+          </div>
+        </div>
+        <div class="gallery">
+          {% for car in cars['luxury'] %}
+          <form
+            action="{{ url_for('book_car', make_model=car.make_model) }}"
+            method="POST"
+            class="card"
+            data-price="{{ car.rental_price_per_day }}"
+            data-mileage="{{ car.mileage }}"
+          >
+            <button
+              type="submit"
+              class="card-button"
+              onclick="checkAvailability(event, {{ car.rented|tojson }}, '{{ car.make_model }}')"
+            >
+              <img
+                src="{{ url_for('static', filename='car_images/' ~ car.make_model|replace(' ', '_') ~ '.jpg') }}"
+                alt="{{ car.make_model }}"
+              />
+              <div class="card-content">
+                <h3>{{ car.make_model }}</h3>
+                <p>Year: {{ car.year }}</p>
+                <p>Mileage: {{ car.mileage }} miles</p>
+                <div class="card-price">
+                  <p>
+                    <i>
+                      Price:
+                      <span class="price-highlight"
+                        >${{ car.rental_price_per_day }}</span
+                      >/day
+                    </i>
+                  </p>
+                </div>
+                <div class="card-price-slider">
+                  <input type="range" min="0" max="100" value="83" disabled />
+                </div>
+                <p
+                  class="status {% if car.rented %}rented{% else %}available{% endif %}"
+                >
+                  {% if car.rented %}Rented{% else %}Available{% endif %}
+                </p>
+              </div>
+            </button>
+          </form>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
