@@ -1,0 +1,20 @@
+{
+    "users": [
+        {
+            "hasAccount": false,
+            "name": "Carter Pytlinski",
+            "email": "cdpyt23@gmail.com",
+            "phone": "3148253776",
+            "totalSpent": 320.46000000000004,
+            "rentedCars": [
+                {
+                    "make_model": "Cadillac CT5",
+                    "start_date": "2025-03-24",
+                    "pickup_time": "12:30",
+                    "duration": "1",
+                    "total_price": 176.74
+                }
+            ]
+        }
+    ]
+}

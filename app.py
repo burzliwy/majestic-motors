@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 import json
-
+import re  
+from datetime import datetime, timedelta
 
 app = Flask(__name__)
 
@@ -12,6 +13,14 @@ def load_cars():
 def save_cars(cars):
     with open('data/cars.json', 'w') as file:
         json.dump({"cars": cars}, file, indent=4)
+
+def load_users():
+    with open ('data/users.json', 'r') as file:
+        return json.load(file)['users']
+    
+def save_users(users):
+    with open ('data/users.json', 'w') as file:
+        json.dump({"users": users}, file, indent=4)    
 
 def parser_car():
     car_classes = {
@@ -32,7 +41,6 @@ def search_car_by_make_model(make_model):
                 }
     return None  
 
-print(search_car_by_make_model('Toyota Corolla')['details']['make_model']) 
 
 
 
@@ -69,6 +77,9 @@ def checkout():
         "customer_phone": request.args.get("customer_phone"),
         "start_date": request.args.get("start_date"),
         "pickup_time": request.args.get("pickup_time"),
+        "base_price": request.args.get("base_price"),
+        "rental_fee": request.args.get("rental_fee"),
+        "tax": request.args.get("tax"),
     }
 
     return render_template('checkout.html', car_data=car_data)
@@ -81,7 +92,126 @@ def hub():
 def auth():
     return render_template('auth.html')
 
+@app.route('/paymentconfirmation')
+def paymentconfirmation():
+    car_data = {
+        "make_model": request.args.get("make_model"),
+        "year": request.args.get("year"),
+        "mileage": request.args.get("mileage"),
+        "rental_duration": request.args.get("duration"),
+        # Remove the "$" and convert to float
+        "total_price": float(re.sub(r'[^\d.]', '', request.args.get("total_price", "0"))),
+        "customer_name": request.args.get("customer_name"),
+        "customer_email": request.args.get("customer_email"),
+        "customer_phone": request.args.get("customer_phone"),
+        "start_date": request.args.get("start_date"),
+        "pickup_time": request.args.get("pickup_time"),
+    }
+
+    users = load_users()
+    user_exists = False
+    for user in users:
+        if user['email'] == car_data['customer_email']:
+            user_exists = True
+            if isinstance(user['totalSpent'], str):
+                user['totalSpent'] = float(re.sub(r'[^\d.]', '', user['totalSpent']))
+            user['totalSpent'] += car_data['total_price']
+            user['rentedCars'].append({
+                "make_model": car_data['make_model'],
+                "start_date": car_data['start_date'],
+                "pickup_time": car_data['pickup_time'],
+                "duration": car_data['rental_duration'],
+                "total_price": car_data['total_price']
+            })
+            break
+    if not user_exists:
+        users.append({
+            "hasAccount": False,
+            "name": car_data['customer_name'],
+            "email": car_data['customer_email'],
+            "phone": car_data['customer_phone'],
+            "totalSpent": car_data['total_price'], 
+            "rentedCars": [
+                {
+                    "make_model": car_data['make_model'],
+                    "start_date": car_data['start_date'],
+                    "pickup_time": car_data['pickup_time'],
+                    "duration": car_data['rental_duration'],
+                    "total_price": car_data['total_price']
+                }
+            ]
+        })
+
+    save_users(users)
+    
+    cars = load_cars()
+    for category in cars:
+        for car in category['vehicles']:
+            if car["make_model"] == car_data['make_model']:
+                car["rented"] = True
+                break
+    save_cars(cars)
+
+    return render_template('paymentconfirmation.html', car_data=car_data)
+
+@app.route('/returncar', methods=['GET', 'POST'])
+def returncar():
+    if request.method == 'POST':
+        email = request.form.get('email')
+        phone = request.form.get('phone')
+
+        # Load users and find the user by email and phone
+        users = load_users()
+        user = next((u for u in users if u['email'] == email and u['phone'] == phone), None)
+
+        if not user:
+            return render_template('returncar.html', error="No account found with the provided email and phone number.")
+
+        if not user['rentedCars']:
+            return render_template('returncar.html', error="No rented cars found for this account.")
+
+        # Calculate remaining time and check if the pickup date is in the future
+        for car in user['rentedCars']:
+            start_date = datetime.strptime(car['start_date'], "%Y-%m-%d")
+            duration_days = int(car['duration'].split()[0])  # Assuming "3 days" format
+            end_date = start_date + timedelta(days=duration_days)
+            remaining_time = end_date - datetime.now()
+
+            car['remaining_time'] = str(remaining_time).split(".")[0]  # Format as "days, hours, minutes"
+            car['is_future_rental'] = datetime.now() < start_date  # True if pickup date is in the future
+
+        # Pass the user's rented cars to the template
+        return render_template('returncar.html', rented_cars=user['rentedCars'], email=email)
+
+    return render_template('returncar.html')
+
+@app.route('/processreturn', methods=['POST'])
+def process_return():
+    email = request.form.get('email')
+    make_model = request.form.get('make_model')
+
+    # Load users and cars
+    users = load_users()
+    cars = load_cars()
+
+    # Find the user and remove the rented car
+    user = next((u for u in users if u['email'] == email), None)
+    if user:
+        user['rentedCars'] = [car for car in user['rentedCars'] if car['make_model'] != make_model]
+        save_users(users)
+
+    # Mark the car as available
+    for category in cars:
+        for car in category['vehicles']:
+            if car['make_model'] == make_model:
+                car['rented'] = False
+                break
+    save_cars(cars)
+
+    return redirect('/returncar')
+    
+
 if __name__ == '__main__':
     app.run(debug=True)
- 
+
 
