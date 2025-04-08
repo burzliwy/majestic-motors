@@ -20,7 +20,7 @@ def load_users():
     
 def save_users(users):
     with open ('data/users.json', 'w') as file:
-        json.dump({"users": users}, file, indent=4)    
+        json.dump({"users": users}, file, indent=4) 
 
 def parser_car():
     car_classes = {
@@ -99,7 +99,6 @@ def paymentconfirmation():
         "year": request.args.get("year"),
         "mileage": request.args.get("mileage"),
         "rental_duration": request.args.get("duration"),
-        # Remove the "$" and convert to float
         "total_price": float(re.sub(r'[^\d.]', '', request.args.get("total_price", "0"))),
         "customer_name": request.args.get("customer_name"),
         "customer_email": request.args.get("customer_email"),
@@ -160,7 +159,6 @@ def returncar():
         email = request.form.get('email')
         phone = request.form.get('phone')
 
-        # Load users and find the user by email and phone
         users = load_users()
         user = next((u for u in users if u['email'] == email and u['phone'] == phone), None)
 
@@ -170,17 +168,14 @@ def returncar():
         if not user['rentedCars']:
             return render_template('returncar.html', error="No rented cars found for this account.")
 
-        # Calculate remaining time and check if the pickup date is in the future
         for car in user['rentedCars']:
             start_date = datetime.strptime(car['start_date'], "%Y-%m-%d")
-            duration_days = int(car['duration'].split()[0])  # Assuming "3 days" format
+            duration_days = int(car['duration'].split()[0]) 
             end_date = start_date + timedelta(days=duration_days)
             remaining_time = end_date - datetime.now()
 
-            car['remaining_time'] = str(remaining_time).split(".")[0]  # Format as "days, hours, minutes"
-            car['is_future_rental'] = datetime.now() < start_date  # True if pickup date is in the future
-
-        # Pass the user's rented cars to the template
+            car['remaining_time'] = str(remaining_time).split(".")[0]  
+            car['is_future_rental'] = datetime.now() < start_date 
         return render_template('returncar.html', rented_cars=user['rentedCars'], email=email)
 
     return render_template('returncar.html')
@@ -209,6 +204,11 @@ def process_return():
     save_cars(cars)
 
     return redirect('/returncar')
+
+@app.route('/condition')
+def condition():
+    return render_template('condition.html')
+
     
 
 if __name__ == '__main__':
