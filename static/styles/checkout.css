@@ -9,9 +9,10 @@
 .car-details {
   flex: 1;
   padding: 20px;
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
+  background-color: var(--dark-card);
+  border: 1px solid var(--gold-transparent-medium);
   border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .form-section {
@@ -23,7 +24,8 @@
   text-align: center;
   margin-bottom: 20px;
   font-size: 1.5em;
-  color: #333;
+  color: var(--gold-primary);
+  opacity: 0.9;
 }
 
 .form-group {
@@ -34,14 +36,22 @@
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
+  color: var(--dark-text);
 }
 
 .form-group input {
   width: 100%;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--dark-surface);
   border-radius: 5px;
   box-sizing: border-box;
+  background-color: var(--dark-surface);
+  color: var(--dark-text);
+}
+
+.form-group input:focus {
+  border-color: var(--gold-transparent-medium);
+  outline: none;
 }
 
 .car-details img {
@@ -49,11 +59,49 @@
   height: auto;
   margin-bottom: 20px;
   border-radius: 8px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--gold-transparent-medium);
 }
 
 .car-details p {
   font-size: 1rem;
   margin: 5px 0;
-  color: #555;
+  color: var(--dark-text-secondary);
+}
+
+.car-details .price {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--gold-primary);
+  margin-top: 15px;
+  opacity: 0.9;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 12px;
+  background-color: var(--gold-transparent-light);
+  color: var(--gold-primary);
+  border: 1px solid var(--gold-transparent-medium);
+  border-radius: 6px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  margin-top: 20px;
+}
+
+.submit-button:hover {
+  background-color: var(--gold-transparent-medium);
+  border-color: var(--gold-transparent-dark);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+  
+  .form-section,
+  .car-details {
+    max-width: 100%;
+  }
 }

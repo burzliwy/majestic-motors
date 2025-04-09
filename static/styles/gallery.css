@@ -7,32 +7,35 @@
 
 /* Category Tabs (Class Selectors) – modern & floating */
 .filter-tabs {
-  background: rgba(255, 255, 255, 0.9);
+  background: var(--dark-surface);
   padding: 15px 20px;
   border-radius: 30px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   margin-bottom: 10px;
   display: flex;
   justify-content: center;
   gap: 20px;
+  border: 1px solid rgba(212, 175, 55, 0.3);
 }
 .filter-tabs .tab {
-  background: #ffffff;
-  border: 1px solid #ddd;
+  background: var(--dark-card);
+  border: 1px solid rgba(212, 175, 55, 0.2);
   padding: 10px 20px;
   border-radius: 25px;
   font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s, transform 0.3s;
+  color: var(--dark-text);
 }
 .filter-tabs .tab:hover {
-  background-color: #f0f0f0;
+  background-color: var(--dark-surface);
   transform: translateY(-2px);
+  border-color: rgba(212, 175, 55, 0.5);
 }
 .filter-tabs .tab.active {
-  background-color: #007bff;
-  color: #fff;
-  border-color: #007bff;
+  background-color: rgba(212, 175, 55, 0.2);
+  color: var(--gold-primary);
+  border-color: rgba(212, 175, 55, 0.5);
 }
 
 /* Filters Row (Sort Dropdowns & Reset) placed below the category buttons */
@@ -44,20 +47,23 @@
   margin-bottom: 30px;
 }
 .filter-controls .sort-filter {
-  background: #fff;
-  border: 1px solid #ddd;
+  background: var(--dark-card);
+  border: 1px solid rgba(212, 175, 55, 0.2);
   padding: 10px 20px;
   border-radius: 25px;
   font-size: 1rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   cursor: pointer;
   transition: transform 0.3s, background-color 0.3s;
+  color: var(--dark-text);
 }
 .filter-controls .sort-filter:hover {
   transform: translateY(-3px);
+  border-color: rgba(212, 175, 55, 0.5);
 }
 .reset-button {
-  background: #f8f9fa;
+  background: var(--dark-surface);
+  color: var(--dark-text);
 }
 
 /* Keyframes for swiping animations based on price sort */
@@ -111,18 +117,20 @@
   text-align: left;
   padding: 10px 20px;
   margin-bottom: 20px;
-  background: #ffffff;
-  border: 1px solid #ddd;
+  background: var(--dark-card);
+  border: 1px solid rgba(212, 175, 55, 0.3);
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #f7f7f7;
+  color: var(--dark-text);
 }
 .banner-title {
   font-size: 1.8rem;
   font-weight: bold;
+  color: var(--gold-primary);
+  opacity: 0.9;
 }
 
 /* Responsive Gallery Grid */
@@ -134,17 +142,18 @@
 
 /* Card Container */
 .card {
-  background-color: #fff;
+  background-color: var(--dark-card);
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
-  border: none;
+  border: 1px solid rgba(212, 175, 55, 0.1);
 }
 .card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+  border-color: rgba(212, 175, 55, 0.3);
 }
 
 /* Resetting button styles within the card */
@@ -178,12 +187,13 @@
 .card-content h3 {
   font-size: 1.2rem;
   margin: 10px 0 5px;
-  color: #212529;
+  color: var(--gold-primary);
   font-weight: 600;
+  opacity: 0.9;
 }
 .card-content p {
   font-size: 0.95rem;
-  color: #555;
+  color: var(--dark-text-secondary);
   margin: 0 0 5px;
 }
 
@@ -197,30 +207,32 @@
   display: inline-block;
 }
 .status.available {
-  background-color: #28a745;
-  color: #fff;
+  background-color: var(--success-color);
+  color: var(--dark-bg);
 }
 .status.rented {
-  background-color: #dc3545;
-  color: #fff;
+  background-color: var(--error-color);
+  color: var(--dark-bg);
 }
 
 .card-price {
   font-style: italic;
   font-size: 1rem;
-  color: #4a4a4a;
+  color: var(--dark-text-secondary);
   text-align: center;
   margin-top: 10px;
 }
 .price-highlight {
-  color: #28a745;
+  color: var(--gold-accent);
   font-weight: bold;
+  opacity: 0.9;
 }
 
 /* Price slider container styling */
 .price-slider {
   position: relative;
   display: inline-block;
+  width: 200px;
 }
 
 /* Tooltip styling; hidden by default */
@@ -228,8 +240,8 @@
   position: absolute;
   bottom: 120%; /* Positions the tooltip above the slider */
   right: 0;
-  background-color: rgba(0, 0, 0, 0.8);
-  color: #fff;
+  background-color: var(--dark-surface);
+  color: var(--dark-text);
   padding: 5px 8px;
   border-radius: 4px;
   font-size: 0.8rem;
@@ -237,6 +249,7 @@
   opacity: 0;
   transition: opacity 0.3s ease;
   pointer-events: none;
+  border: 1px solid rgba(212, 175, 55, 0.3);
 }
 
 /* Optionally, add a small arrow downwards */
@@ -247,7 +260,7 @@
   right: 10px;
   border-width: 5px;
   border-style: solid;
-  border-color: rgba(0, 0, 0, 0.8) transparent transparent transparent;
+  border-color: var(--dark-surface) transparent transparent transparent;
 }
 
 /* Show the tooltip when hovering over the slider container */
@@ -255,140 +268,142 @@
   opacity: 1;
 }
 
+/* Base styles for all range inputs */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  border-radius: 5px;
+  background: var(--dark-surface);
+  outline: none;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
 /* Existing slider track segmentation */
 .price-slider input[type="range"] {
-  -webkit-appearance: none; /* Remove default appearance */
-  width: 100%;
-  height: 9px;
   background: linear-gradient(
     to right,
-    #28a745 0%,
-    /* Green from 0% to 33% */ #28a745 33%,
-    #ffc107 33%,
-    /* Yellow from 33% to 66% */ #ffc107 66%,
-    #dc3545 66%,
-    /* Red from 66% to 100% */ #dc3545 100%
+    var(--success-color) 0%,
+    var(--success-color) 33%,
+    var(--gold-primary) 33%,
+    var(--gold-primary) 66%,
+    var(--error-color) 66%,
+    var(--error-color) 100%
   );
-  border: none;
-  border-radius: 5px;
-  pointer-events: none; /* Non-interactive slider */
-  margin: 0;
+  pointer-events: none;
 }
 
 /* Slider track for WebKit browsers */
-.price-slider input[type="range"]::-webkit-slider-runnable-track {
-  height: 6px;
+input[type="range"]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 8px;
+  cursor: pointer;
   background: inherit;
   border-radius: 5px;
+  border: 1px solid rgba(212, 175, 55, 0.2);
 }
 
 /* Slider track for Mozilla Firefox */
-.price-slider input[type="range"]::-moz-range-track {
-  height: 6px;
+input[type="range"]::-moz-range-track {
+  width: 100%;
+  height: 8px;
+  cursor: pointer;
   background: inherit;
   border-radius: 5px;
+  border: 1px solid rgba(212, 175, 55, 0.2);
 }
 
 /* Thumb styled as a caret for WebKit browsers */
-.price-slider input[type="range"]::-webkit-slider-thumb {
+input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 4px; /* Narrow width */
-  height: 20px; /* Taller height for caret effect */
-  background: #000; /* Black caret */
+  width: 4px;
+  height: 20px;
+  background: var(--dark-text);
   border: none;
-  margin-top: -7px; /* Adjusts vertical centering on the track */
+  margin-top: -7px;
+  cursor: pointer;
 }
 
 /* Thumb styled as a caret for Mozilla Firefox */
-.price-slider input[type="range"]::-moz-range-thumb {
+input[type="range"]::-moz-range-thumb {
   width: 4px;
   height: 20px;
-  background: #000;
+  background: var(--dark-text);
   border: none;
+  cursor: pointer;
 }
 
 /* Card price slider styling */
 .card-price-slider {
-  margin-top: 10px;
+  margin-top: 15px;
   width: 100%;
 }
 
 .card-price-slider input[type="range"] {
-  -webkit-appearance: none;
-  width: 100%;
   height: 6px;
   background: linear-gradient(
     to right,
-    #28a745 0%,
-    #28a745 33%,
-    #ffc107 33%,
-    #ffc107 66%,
-    #dc3545 66%,
-    #dc3545 100%
+    var(--success-color) 0%,
+    var(--success-color) 33%,
+    var(--gold-primary) 33%,
+    var(--gold-primary) 66%,
+    var(--error-color) 66%,
+    var(--error-color) 100%
   );
-  border: none;
-  border-radius: 5px;
   pointer-events: none;
+}
+
+.card-price-slider input[type="range"]::-webkit-slider-runnable-track {
+  height: 6px;
 }
 
 .card-price-slider input[type="range"]::-moz-range-track {
   height: 6px;
-  background: inherit;
-  border-radius: 5px;
-}
-
-.card-price-slider input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 4px;
-  height: 20px;
-  background: #000;
-  border: none;
-  margin-top: -7px;
-}
-
-.card-price-slider input[type="range"]::-moz-range-thumb {
-  width: 4px;
-  height: 20px;
-  background: #000;
-  border: none;
 }
 
 /* Filter row styling */
 .filter-row {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  gap: 20px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+  background: var(--dark-surface);
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid rgba(212, 175, 55, 0.2);
 }
 
 .filter-row .filter-group {
   display: flex;
-  flex-direction: column;
+  align-items: center;
 }
 
 .filter-row .filter-group label {
-  margin-bottom: 5px;
-  font-weight: 600;
+  margin-right: 10px;
+  color: var(--dark-text);
 }
 
 .filter-row .filter-group input {
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  background: var(--dark-card);
+  color: var(--dark-text);
 }
 
 .filter-row .filter-group button {
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: #fff;
+  padding: 8px 15px;
+  background: rgba(212, 175, 55, 0.2);
+  color: var(--gold-primary);
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
   cursor: pointer;
+  transition: background 0.3s;
 }
 
 .filter-row .filter-group button:hover {
-  background-color: #0056b3;
+  background: rgba(212, 175, 55, 0.3);
 }

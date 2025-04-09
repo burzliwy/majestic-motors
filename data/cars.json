@@ -8,7 +8,7 @@
                     "year": 2020,
                     "mileage": 35000,
                     "previous_owners": null,
-                    "rented": false,
+                    "rented": true,
                     "image_link": "static/car_images/toyota_corolla.jpg",
                     "rental_price_per_day": 45.87
                 },
@@ -17,7 +17,7 @@
                     "year": 2019,
                     "mileage": 45000,
                     "previous_owners": null,
-                    "rented": false,
+                    "rented": true,
                     "image_link": "static/car_images/honda_fit.jpg",
                     "rental_price_per_day": 40.33
                 },
@@ -207,7 +207,7 @@
                     "year": 2020,
                     "mileage": 30000,
                     "previous_owners": null,
-                    "rented": false,
+                    "rented": true,
                     "image_link": "static/car_images/Audi_A6.jpg",
                     "rental_price_per_day": 115.43
                 },

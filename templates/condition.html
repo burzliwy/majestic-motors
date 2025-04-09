@@ -5,9 +5,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/static/styles/app.css" />
     <link rel="stylesheet" href="/static/styles/navbar.css" />
-    <title>Condition</title>
+    <link rel="stylesheet" href="/static/styles/condition.css" />
+    <title>Vehicle Condition Report</title>
   </head>
   <body>
-    <p>Condition page</p>
+    <!-- Include the navbar -->
+    {% include 'navbar.html' %}
+
+    <div class="condition-container">
+      <div class="floating-box">
+        <div class="car-info">
+          <h2>{{ car_data['details']['make_model'] }}</h2>
+          <div class="car-image-container">
+            <img src="{{ url_for('static', filename='car_images/' ~ car_data['details']['make_model']|replace(' ', '_') ~ '.jpg') }}" alt="{{ car_data['details']['make_model'] }}">
+          </div>
+          <div class="car-details">
+            <p><strong>Year:</strong> {{ car_data['details']['year'] }}</p>
+            <p><strong>Mileage:</strong> {{ car_data['details']['mileage'] }} miles</p>
+            <p><strong>Class:</strong> {{ car_data['class'] }}</p>
+          </div>
+        </div>
+
+        <div class="condition-details">
+          <h2>Vehicle Condition Report</h2>
+          <p>Please review the following condition report for this vehicle. By proceeding with the rental, you acknowledge that you have been informed of these conditions and accept the vehicle in its current state.</p>
+          
+          <ul class="condition-list">
+            <li class="condition-item">
+              <h3>Exterior Damage</h3>
+              <p>Minor scratches on the front bumper and right rear door. Small dent on the left rear quarter panel. Paint chips on the hood.</p>
+            </li>
+            <li class="condition-item">
+              <h3>Interior Condition</h3>
+              <p>Wear on driver's seat upholstery. Stains on rear seat fabric. Dashboard has minor scratches and wear on touchscreen.</p>
+            </li>
+            <li class="condition-item">
+              <h3>Mechanical Issues</h3>
+              <p>Check engine light occasionally illuminates. Air conditioning may require service. Tire pressure monitoring system needs calibration.</p>
+            </li>
+            <li class="condition-item">
+              <h3>Safety Features</h3>
+              <p>Blind spot monitoring system intermittently functions. Lane departure warning system may be less responsive than new models.</p>
+            </li>
+            <li class="condition-item">
+              <h3>Maintenance History</h3>
+              <p>Vehicle is due for oil change in approximately 1,000 miles. Brake pads were replaced 5,000 miles ago but may need service soon.</p>
+            </li>
+          </ul>
+
+          <div class="disclaimer">
+            <h3>Important Liability Disclaimer</h3>
+            <p>By proceeding with this rental, you acknowledge that you have been fully informed of the vehicle's condition as described above. You understand that the vehicle is being rented "as is" and that the rental company is not liable for any issues that may arise due to the vehicle's condition. You agree that what we have informed you about is the damage on record. you are responsible for to disclaim any damage that happens during the rental period.</p>
+          </div>
+        </div>
+
+        <div class="button-container">
+          <a href="/hub" class="btn btn-secondary">Back to Gallery</a>
+          <a href="/confirmation/{{ car_data['details']['make_model'] }}" class="btn btn-primary">Acknowledge & Continue</a>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

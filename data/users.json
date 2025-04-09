@@ -5,7 +5,7 @@
             "name": "Carter Pytlinski",
             "email": "cdpyt23@gmail.com",
             "phone": "3148253776",
-            "totalSpent": 320.46000000000004,
+            "totalSpent": 2120.999999999999,
             "rentedCars": []
         },
         {
@@ -15,6 +15,45 @@
             "phone": "3147591187",
             "totalSpent": 1112.28,
             "rentedCars": []
+        },
+        {
+            "hasAccount": false,
+            "name": "ryan",
+            "email": "ryan@lodeyck.com",
+            "phone": "3148109911",
+            "totalSpent": 789.34,
+            "rentedCars": [
+                {
+                    "make_model": "Audi A6",
+                    "start_date": "2025-04-09",
+                    "pickup_time": "12:30",
+                    "duration": "6",
+                    "total_price": 789.34
+                }
+            ]
+        },
+        {
+            "hasAccount": false,
+            "name": "",
+            "email": "",
+            "phone": "",
+            "totalSpent": 149.82,
+            "rentedCars": [
+                {
+                    "make_model": "Honda Fit",
+                    "start_date": "2025-04-30",
+                    "pickup_time": "12:30",
+                    "duration": "1",
+                    "total_price": 71.86
+                },
+                {
+                    "make_model": "Toyota Corolla",
+                    "start_date": "2025-04-23",
+                    "pickup_time": "12:23",
+                    "duration": "1",
+                    "total_price": 77.96
+                }
+            ]
         }
     ]
 }

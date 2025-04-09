@@ -9,7 +9,8 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  background-color: #f4f4f9;
+  background-color: var(--dark-bg);
+  color: var(--dark-text);
 }
 
 /* Two Column Layout Container */
@@ -24,10 +25,11 @@ body {
 
 /* Floating Box Style (applied to both car-info and rental-form) */
 .floating-box {
-  background-color: #ffffff;
+  background-color: var(--dark-card);
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--gold-transparent-medium);
 }
 
 /* Car Info Section */
@@ -43,7 +45,7 @@ body {
 .image-container img {
   width: 100%;
   border-radius: 8px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--gold-transparent-medium);
   transition: transform 0.3s ease;
 }
 
@@ -60,11 +62,11 @@ body {
 }
 
 .detail-box {
-  background-color: #ffffff;
-  border: 1px solid #ddd;
+  background-color: var(--dark-surface);
+  border: 1px solid var(--gold-transparent-medium);
   border-radius: 8px;
   padding: 10px 15px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   text-align: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   width: 180px;
@@ -72,21 +74,23 @@ body {
 
 .detail-box:hover {
   transform: translateY(-5px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  border-color: var(--gold-transparent-dark);
 }
 
 .detail-title {
   font-size: 0.9rem;
   font-weight: 600;
-  color: #444;
+  color: var(--gold-primary);
   margin-bottom: 8px;
   display: block;
+  opacity: 0.9;
 }
 
 .detail-box p {
   margin: 0;
   font-size: 0.9rem;
-  color: #333;
+  color: var(--dark-text);
 }
 
 /* Rental Form Section */
@@ -97,7 +101,7 @@ body {
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(15px);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
@@ -107,93 +111,93 @@ body {
 
 .rental-form h2 {
   text-align: center;
-  color: #333;
   margin-bottom: 20px;
-  font-weight: 600;
+  color: var(--gold-primary);
+  opacity: 0.9;
 }
 
-/* Form Group */
 .form-group {
-  margin-bottom: 20px;
-  display: flex;
-  flex-direction: column;
+  margin-bottom: 15px;
 }
 
 .form-group label {
-  margin-bottom: 8px;
+  display: block;
+  margin-bottom: 5px;
   font-weight: 600;
-  color: #555;
+  color: var(--dark-text);
 }
 
-/* Inputs: text, date, and time */
 .rental-form .form-group input[type="text"],
-.rental-form .form-group input[type="date"],
-.rental-form .form-group input[type="time"] {
+.rental-form .form-group input[type="email"],
+.rental-form .form-group input[type="tel"],
+.rental-form .form-group input[type="date"] {
+  width: 100%;
   padding: 10px;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  transition: border-color 0.3s;
+  border: 1px solid var(--dark-surface);
+  border-radius: 5px;
+  background-color: var(--dark-surface);
+  color: var(--dark-text);
+  transition: border-color 0.3s ease;
 }
 
 .rental-form .form-group input[type="text"]:focus,
-.rental-form .form-group input[type="date"]:focus,
-.rental-form .form-group input[type="time"]:focus {
-  border-color: #007bff;
+.rental-form .form-group input[type="email"]:focus,
+.rental-form .form-group input[type="tel"]:focus,
+.rental-form .form-group input[type="date"]:focus {
+  border-color: var(--gold-transparent-medium);
   outline: none;
 }
 
-/* Range Slider */
 .rental-form .form-group input[type="range"] {
-  -webkit-appearance: none;
-  appearance: none;
+  width: 100%;
   height: 8px;
   border-radius: 5px;
-  background: #ddd;
+  background: var(--dark-surface);
   outline: none;
-  transition: background 0.3s;
+  opacity: 0.7;
+  transition: opacity 0.2s;
 }
+
 .rental-form .form-group input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 20px;
+  width: 4px;
   height: 20px;
-  border-radius: 50%;
-  background: #007bff;
+  background: var(--dark-text);
+  border: none;
+  margin-top: -7px;
   cursor: pointer;
-  transition: background 0.3s, transform 0.2s;
 }
+
 .rental-form .form-group input[type="range"]::-webkit-slider-thumb:hover {
-  background: #0056b3;
-  transform: scale(1.1);
+  background: var(--gold-primary);
 }
 
-/* Price Display */
 .rental-form p {
-  font-size: 1rem;
-  text-align: center;
-  color: #444;
+  margin: 5px 0;
+  font-size: 0.9rem;
+  color: var(--dark-text-secondary);
 }
 
-/* Confirm Button */
 .confirm-button {
   width: 100%;
   padding: 12px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
+  background-color: var(--gold-transparent-light);
+  color: var(--gold-primary);
+  border: 1px solid var(--gold-transparent-medium);
   border-radius: 6px;
   font-size: 1.1rem;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s;
+  margin-top: 20px;
 }
 
 .confirm-button:hover {
-  background-color: #0056b3;
+  background-color: var(--gold-transparent-medium);
+  border-color: var(--gold-transparent-dark);
   transform: translateY(-2px);
 }
 
-/* Responsive: Stack columns on smaller screens */
 @media (max-width: 768px) {
   .container {
     grid-template-columns: 1fr;
@@ -202,41 +206,39 @@ body {
 
 .back-button {
   display: inline-block;
-  padding: 10px 15px;
-  font-size: 16px;
-  color: #ffffff;
-  background-color: #007bff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+  padding: 10px 20px;
+  background-color: var(--dark-surface);
+  color: var(--dark-text);
+  border: 1px solid var(--gold-transparent-medium);
+  border-radius: 4px;
   text-decoration: none;
-  margin: 50px 0 20px;
-  position: relative;
-  left: 9%;
+  margin-top: 20px;
+  transition: all 0.3s ease;
 }
 
 .back-button:hover {
-  background-color: #0056b3;
+  background-color: var(--gold-transparent-light);
+  color: var(--gold-primary);
+  border-color: var(--gold-transparent-dark);
 }
 
-/* Inputs: text, date, time, tel, and email */
 .rental-form .form-group input[type="text"],
-.rental-form .form-group input[type="date"],
-.rental-form .form-group input[type="time"],
+.rental-form .form-group input[type="email"],
 .rental-form .form-group input[type="tel"],
-.rental-form .form-group input[type="email"] {
+.rental-form .form-group input[type="date"] {
+  width: 100%;
   padding: 10px;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  transition: border-color 0.3s;
+  border: 1px solid var(--dark-surface);
+  border-radius: 5px;
+  background-color: var(--dark-surface);
+  color: var(--dark-text);
+  transition: border-color 0.3s ease;
 }
 
 .rental-form .form-group input[type="text"]:focus,
-.rental-form .form-group input[type="date"]:focus,
-.rental-form .form-group input[type="time"]:focus,
+.rental-form .form-group input[type="email"]:focus,
 .rental-form .form-group input[type="tel"]:focus,
-.rental-form .form-group input[type="email"]:focus {
-  border-color: #007bff;
+.rental-form .form-group input[type="date"]:focus {
+  border-color: var(--gold-transparent-medium);
   outline: none;
 }

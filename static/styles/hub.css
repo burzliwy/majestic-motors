@@ -6,10 +6,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #007bff 0%, #00c6ff 100%);
+  background: linear-gradient(135deg, var(--dark-surface) 0%, var(--dark-card) 100%);
   text-align: center;
   padding: 0 20px;
-  color: #fff;
+  color: var(--dark-text);
 }
 
 .hero::after {
@@ -19,7 +19,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.5);
   z-index: 1;
 }
 
@@ -32,25 +32,30 @@
 .hero h1 {
   font-size: 3rem;
   margin-bottom: 20px;
+  color: var(--gold-primary);
+  opacity: 0.9;
 }
 
 .hero p {
   font-size: 1.25rem;
   margin-bottom: 30px;
+  color: var(--dark-text);
 }
 
 .cta-button {
-  background: #fff;
-  color: #007bff;
+  background: var(--gold-transparent-light);
+  color: var(--gold-primary);
   padding: 15px 30px;
   border-radius: 4px;
   text-decoration: none;
   font-weight: bold;
-  transition: background 0.3s, transform 0.3s;
+  transition: all 0.3s;
+  border: 1px solid var(--gold-transparent-medium);
 }
 
 .cta-button:hover {
-  background: #f0f0f0;
+  background: var(--gold-transparent-medium);
+  border-color: var(--gold-transparent-dark);
   transform: translateY(-2px);
 }
 
@@ -58,12 +63,14 @@
 .features {
   padding: 60px 20px;
   text-align: center;
-  background: #fff;
+  background: var(--dark-bg);
 }
 
 .features h2 {
   font-size: 2rem;
   margin-bottom: 40px;
+  color: var(--gold-primary);
+  opacity: 0.9;
 }
 
 .feature-cards {
@@ -74,17 +81,19 @@
 }
 
 .feature-cards .card {
-  background: #f9f9f9;
+  background: var(--dark-card);
   border-radius: 8px;
   padding: 30px 20px;
   width: 280px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s, box-shadow 0.3s;
+  border: 1px solid var(--gold-transparent-medium);
 }
 
 .feature-cards .card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+  border-color: var(--gold-transparent-dark);
 }
 
 .feature-cards .card img {
@@ -95,24 +104,27 @@
 .feature-cards .card h3 {
   font-size: 1.5rem;
   margin-bottom: 10px;
-  color: #007bff;
+  color: var(--gold-primary);
+  opacity: 0.9;
 }
 
 .feature-cards .card p {
   font-size: 1rem;
-  color: #555;
+  color: var(--dark-text-secondary);
 }
 
 /* Featured Cars Section */
 .cars {
   padding: 60px 20px;
-  background: #f4f4f9;
+  background: var(--dark-surface);
   text-align: center;
 }
 
 .cars h2 {
   font-size: 2rem;
   margin-bottom: 40px;
+  color: var(--gold-primary);
+  opacity: 0.9;
 }
 
 .car-gallery {
@@ -123,16 +135,18 @@
 }
 
 .car-card {
-  background: #fff;
+  background: var(--dark-card);
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s, box-shadow 0.3s;
+  border: 1px solid var(--gold-transparent-medium);
 }
 
 .car-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+  border-color: var(--gold-transparent-dark);
 }
 
 .car-card img {
@@ -144,23 +158,26 @@
 .car-card h3 {
   padding: 15px;
   font-size: 1.2rem;
-  color: #333;
+  color: var(--gold-primary);
+  opacity: 0.9;
 }
 
 /* Browse Button */
 .browse-button {
   display: inline-block;
-  background: #007bff;
-  color: #fff;
+  background: var(--gold-transparent-light);
+  color: var(--gold-primary);
   padding: 12px 30px;
   border-radius: 4px;
   text-decoration: none;
   font-weight: bold;
-  transition: background 0.3s, transform 0.3s;
+  transition: all 0.3s;
+  border: 1px solid var(--gold-transparent-medium);
 }
 
 .browse-button:hover {
-  background: #0056b3;
+  background: var(--gold-transparent-medium);
+  border-color: var(--gold-transparent-dark);
   transform: translateY(-2px);
 }
 
@@ -168,12 +185,14 @@
 .contact {
   padding: 60px 20px;
   text-align: center;
-  background: #fff;
+  background: var(--dark-bg);
 }
 
 .contact h2 {
   font-size: 2rem;
   margin-bottom: 40px;
+  color: var(--gold-primary);
+  opacity: 0.9;
 }
 
 .contact-form {
@@ -187,33 +206,43 @@
 .contact-form input,
 .contact-form textarea {
   padding: 10px 15px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--dark-surface);
   border-radius: 4px;
   font-size: 1rem;
+  background-color: var(--dark-surface);
+  color: var(--dark-text);
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: var(--gold-transparent-medium);
+  outline: none;
 }
 
 .contact-form button {
-  background: #007bff;
-  color: #fff;
+  background: var(--gold-transparent-light);
+  color: var(--gold-primary);
   padding: 12px;
-  border: none;
+  border: 1px solid var(--gold-transparent-medium);
   border-radius: 4px;
   font-size: 1rem;
   cursor: pointer;
-  transition: background 0.3s, transform 0.3s;
+  transition: all 0.3s;
 }
 
 .contact-form button:hover {
-  background: #0056b3;
+  background: var(--gold-transparent-medium);
+  border-color: var(--gold-transparent-dark);
   transform: translateY(-2px);
 }
 
 /* Footer */
 .footer {
-  background: #333;
-  color: #fff;
+  background: var(--dark-surface);
+  color: var(--dark-text);
   padding: 20px 40px;
   text-align: center;
+  border-top: 1px solid var(--gold-transparent-medium);
 }
 
 .footer .footer-content {
@@ -232,12 +261,12 @@
 }
 
 .footer-links li a {
-  color: #fff;
+  color: var(--dark-text);
   text-decoration: none;
   font-size: 0.9rem;
   transition: color 0.3s;
 }
 
 .footer-links li a:hover {
-  color: #007bff;
+  color: var(--gold-primary);
 }

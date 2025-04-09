@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Rental Invoice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .invoice-details {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .invoice-details h2 {
+            color: #D4AF37;
+            margin-top: 0;
+        }
+        .invoice-details p {
+            margin: 5px 0;
+        }
+        .total {
+            font-size: 1.2em;
+            font-weight: bold;
+            text-align: right;
+            margin-top: 20px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Car Rental Invoice</h1>
+        <p>Thank you for your rental!</p>
+    </div>
+    
+    <div class="invoice-details">
+        <h2>Car Details</h2>
+        <p>Make/Model: {{ rental_details.make_model }}</p>
+        <p>Year: {{ rental_details.year }}</p>
+        <p>Mileage: {{ rental_details.mileage }}</p>
+        
+        <h2>Rental Details</h2>
+        <p>Start Date: {{ rental_details.start_date }}</p>
+        <p>Pickup Time: {{ rental_details.pickup_time }}</p>
+        <p>Duration: {{ rental_details.rental_duration }}</p>
+        
+        <h2>Customer Information</h2>
+        <p>Name: {{ customer.customer_name }}</p>
+        <p>Email: {{ customer.customer_email }}</p>
+        <p>Phone: {{ customer.customer_phone }}</p>
+        
+        <h2>Payment Details</h2>
+        <p>Base Price: ${{ rental_details.base_price }}</p>
+        <p>Rental Fee: ${{ rental_details.rental_fee }}</p>
+        <p>Tax: ${{ rental_details.tax }}</p>
+        <div class="total">
+            <p>Total Amount: ${{ rental_details.total_price }}</p>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>If you have any questions, please contact our support team.</p>
+        <p>© 2023 Car Rental Kiosk. All rights reserved.</p>
+    </div>
+</body>
+</html> 

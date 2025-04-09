@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Car Rental Kiosk</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .welcome-message {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .features {
+            margin-bottom: 20px;
+        }
+        .features ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .features li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+        .features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #4CAF50;
+        }
+        .cta-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #D4AF37;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Welcome to Car Rental Kiosk!</h1>
+        <p>We're excited to have you on board!</p>
+    </div>
+    
+    <div class="welcome-message">
+        <p>Dear {{ user.name }},</p>
+        <p>Thank you for creating an account with Car Rental Kiosk. We're thrilled to have you join our community of car rental enthusiasts!</p>
+    </div>
+    
+    <div class="features">
+        <h2>What You Can Do With Your Account:</h2>
+        <ul>
+            <li>Browse our extensive fleet of vehicles</li>
+            <li>Make reservations with just a few clicks</li>
+            <li>Track your rental history</li>
+            <li>Receive exclusive offers and discounts</li>
+            <li>Manage your profile and preferences</li>
+        </ul>
+    </div>
+    
+    <div style="text-align: center;">
+        <a href="{{ url_for('main.gallery') }}" class="cta-button">Start Browsing Cars</a>
+    </div>
+    
+    <div class="footer">
+        <p>If you have any questions, our support team is here to help!</p>
+        <p>© 2023 Car Rental Kiosk. All rights reserved.</p>
+    </div>
+</body>
+</html> 
