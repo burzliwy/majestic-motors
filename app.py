@@ -56,8 +56,13 @@ def book_car(make_model):
     for category in cars:
         for car in category['vehicles']:
             if car["make_model"] == make_model and not car["rented"]:
-                return redirect(url_for('confirmation', make_model=make_model))
+                return redirect(url_for('condition', make_model=make_model))
     return "Car not available or already rented.", 400
+
+# Route to condition page
+@app.route('/condition/<make_model>')
+def condition(make_model):
+    return render_template('condition.html', car_data=search_car_by_make_model(make_model), make_model=make_model)
 
 # Route to confirmation page
 @app.route('/confirmation/<make_model>')
@@ -204,12 +209,6 @@ def process_return():
     save_cars(cars)
 
     return redirect('/returncar')
-
-@app.route('/condition')
-def condition():
-    return render_template('condition.html')
-
-    
 
 if __name__ == '__main__':
     app.run(debug=True)

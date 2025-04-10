@@ -29,7 +29,7 @@ body {
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-  border: 1px solid var(--gold-transparent-medium);
+  border: 1px solid var(--gold-primary);
 }
 
 /* Car Info Section */
@@ -45,7 +45,7 @@ body {
 .image-container img {
   width: 100%;
   border-radius: 8px;
-  border: 1px solid var(--gold-transparent-medium);
+  border: 1px solid var(--gold-secondary);
   transition: transform 0.3s ease;
 }
 
@@ -63,7 +63,7 @@ body {
 
 .detail-box {
   background-color: var(--dark-surface);
-  border: 1px solid var(--gold-transparent-medium);
+  border: 1px solid var(--gold-secondary);
   border-radius: 8px;
   padding: 10px 15px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
@@ -75,7 +75,7 @@ body {
 .detail-box:hover {
   transform: translateY(-5px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-  border-color: var(--gold-transparent-dark);
+  border-color: var(--gold-primary);
 }
 
 .detail-title {
@@ -84,7 +84,6 @@ body {
   color: var(--gold-primary);
   margin-bottom: 8px;
   display: block;
-  opacity: 0.9;
 }
 
 .detail-box p {
@@ -101,7 +100,7 @@ body {
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(15px);
   }
   to {
     opacity: 1;
@@ -111,93 +110,95 @@ body {
 
 .rental-form h2 {
   text-align: center;
-  margin-bottom: 20px;
   color: var(--gold-primary);
-  opacity: 0.9;
+  margin-bottom: 20px;
+  font-weight: 600;
 }
 
+/* Form Group */
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 .form-group label {
-  display: block;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
   font-weight: 600;
   color: var(--dark-text);
 }
 
+/* Inputs: text, date, and time */
 .rental-form .form-group input[type="text"],
-.rental-form .form-group input[type="email"],
-.rental-form .form-group input[type="tel"],
-.rental-form .form-group input[type="date"] {
-  width: 100%;
+.rental-form .form-group input[type="date"],
+.rental-form .form-group input[type="time"] {
   padding: 10px;
+  font-size: 1rem;
   border: 1px solid var(--dark-surface);
-  border-radius: 5px;
+  border-radius: 4px;
+  transition: border-color 0.3s;
   background-color: var(--dark-surface);
   color: var(--dark-text);
-  transition: border-color 0.3s ease;
 }
 
 .rental-form .form-group input[type="text"]:focus,
-.rental-form .form-group input[type="email"]:focus,
-.rental-form .form-group input[type="tel"]:focus,
-.rental-form .form-group input[type="date"]:focus {
-  border-color: var(--gold-transparent-medium);
+.rental-form .form-group input[type="date"]:focus,
+.rental-form .form-group input[type="time"]:focus {
+  border-color: var(--gold-primary);
   outline: none;
 }
 
+/* Range Slider */
 .rental-form .form-group input[type="range"] {
-  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
   height: 8px;
   border-radius: 5px;
   background: var(--dark-surface);
   outline: none;
-  opacity: 0.7;
-  transition: opacity 0.2s;
+  transition: background 0.3s;
 }
-
 .rental-form .form-group input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 4px;
+  width: 20px;
   height: 20px;
-  background: var(--dark-text);
-  border: none;
-  margin-top: -7px;
-  cursor: pointer;
-}
-
-.rental-form .form-group input[type="range"]::-webkit-slider-thumb:hover {
+  border-radius: 50%;
   background: var(--gold-primary);
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+.rental-form .form-group input[type="range"]::-webkit-slider-thumb:hover {
+  background: var(--gold-secondary);
+  transform: scale(1.1);
 }
 
+/* Price Display */
 .rental-form p {
-  margin: 5px 0;
-  font-size: 0.9rem;
-  color: var(--dark-text-secondary);
+  font-size: 1rem;
+  text-align: center;
+  color: var(--dark-text);
 }
 
+/* Confirm Button */
 .confirm-button {
   width: 100%;
   padding: 12px;
-  background-color: var(--gold-transparent-light);
-  color: var(--gold-primary);
-  border: 1px solid var(--gold-transparent-medium);
+  background-color: var(--gold-primary);
+  color: var(--dark-bg);
+  border: none;
   border-radius: 6px;
   font-size: 1.1rem;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s;
-  margin-top: 20px;
 }
 
 .confirm-button:hover {
-  background-color: var(--gold-transparent-medium);
-  border-color: var(--gold-transparent-dark);
+  background-color: var(--gold-secondary);
   transform: translateY(-2px);
 }
 
+/* Responsive: Stack columns on smaller screens */
 @media (max-width: 768px) {
   .container {
     grid-template-columns: 1fr;
@@ -206,39 +207,43 @@ body {
 
 .back-button {
   display: inline-block;
-  padding: 10px 20px;
-  background-color: var(--dark-surface);
-  color: var(--dark-text);
-  border: 1px solid var(--gold-transparent-medium);
-  border-radius: 4px;
+  padding: 10px 15px;
+  font-size: 16px;
+  color: var(--dark-bg);
+  background-color: var(--gold-primary);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
   text-decoration: none;
-  margin-top: 20px;
-  transition: all 0.3s ease;
+  margin: 50px 0 20px;
+  position: relative;
+  left: 9%;
 }
 
 .back-button:hover {
-  background-color: var(--gold-transparent-light);
-  color: var(--gold-primary);
-  border-color: var(--gold-transparent-dark);
+  background-color: var(--gold-secondary);
 }
 
+/* Inputs: text, date, time, tel, and email */
 .rental-form .form-group input[type="text"],
-.rental-form .form-group input[type="email"],
+.rental-form .form-group input[type="date"],
+.rental-form .form-group input[type="time"],
 .rental-form .form-group input[type="tel"],
-.rental-form .form-group input[type="date"] {
-  width: 100%;
+.rental-form .form-group input[type="email"] {
   padding: 10px;
+  font-size: 1rem;
   border: 1px solid var(--dark-surface);
-  border-radius: 5px;
+  border-radius: 4px;
+  transition: border-color 0.3s;
   background-color: var(--dark-surface);
   color: var(--dark-text);
-  transition: border-color 0.3s ease;
 }
 
 .rental-form .form-group input[type="text"]:focus,
-.rental-form .form-group input[type="email"]:focus,
+.rental-form .form-group input[type="date"]:focus,
+.rental-form .form-group input[type="time"]:focus,
 .rental-form .form-group input[type="tel"]:focus,
-.rental-form .form-group input[type="date"]:focus {
-  border-color: var(--gold-transparent-medium);
+.rental-form .form-group input[type="email"]:focus {
+  border-color: var(--gold-primary);
   outline: none;
 }

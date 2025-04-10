@@ -5,7 +5,7 @@
             "name": "Carter Pytlinski",
             "email": "cdpyt23@gmail.com",
             "phone": "3148253776",
-            "totalSpent": 2120.999999999999,
+            "totalSpent": 2268.7599999999993,
             "rentedCars": []
         },
         {
@@ -37,7 +37,7 @@
             "name": "",
             "email": "",
             "phone": "",
-            "totalSpent": 149.82,
+            "totalSpent": 221.68,
             "rentedCars": [
                 {
                     "make_model": "Honda Fit",
@@ -52,6 +52,13 @@
                     "pickup_time": "12:23",
                     "duration": "1",
                     "total_price": 77.96
+                },
+                {
+                    "make_model": "Honda Fit",
+                    "start_date": "2025-04-24",
+                    "pickup_time": "14:27",
+                    "duration": "1",
+                    "total_price": 71.86
                 }
             ]
         }

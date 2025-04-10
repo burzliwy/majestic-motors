@@ -5,7 +5,7 @@
   padding: 20px 40px;
   background: var(--dark-surface);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  border-bottom: 1px solid var(--gold-transparent-medium);
+  border-bottom: 1px solid var(--gold-primary);
 }
 
 /* Logo styling remains on the left */
@@ -13,7 +13,6 @@
   font-size: 1.8rem;
   font-weight: bold;
   color: var(--gold-primary);
-  opacity: 0.9;
 }
 
 /* The nav-links container takes up extra space and centers its items */
@@ -40,25 +39,23 @@
 }
 
 .nav-links li a:hover {
-  color: var(--gold-primary);
-  opacity: 0.9;
+  color: var(--gold-accent);
 }
 
-/* Make navbar icons white */
+/* Make icons white */
+.nav-links li a i,
+.nav-links li a svg,
 .nav-links li a img {
-  filter: invert(1) brightness(0.9);
-  transition: filter 0.3s;
-}
-
-.nav-links li a:hover img {
-  filter: invert(1) brightness(1);
+  color: white;
+  fill: white;
+  filter: brightness(0) invert(1);
 }
 
 /* Profile button remains on the right */
 .profile-button {
-  background: var(--gold-transparent-light);
-  color: var(--gold-primary);
-  border: 1px solid var(--gold-transparent-medium);
+  background: var(--gold-primary);
+  color: var(--dark-bg);
+  border: none;
   padding: 10px 20px;
   border-radius: 4px;
   cursor: pointer;
@@ -66,6 +63,6 @@
 }
 
 .profile-button:hover {
-  background: var(--gold-transparent-medium);
-  border-color: var(--gold-transparent-dark);
+  background: var(--gold-secondary);
+  color: var(--dark-text);
 }
